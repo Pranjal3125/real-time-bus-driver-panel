@@ -1,283 +1,81 @@
-# 🚌 Real-Time Bus Driver Panel
-
 <div align="center">
 
-[![Android](https://img.shields.io/badge/Platform-Android-green.svg)](https://android.com)
-[![Kotlin](https://img.shields.io/badge/Language-Kotlin-blue.svg)](https://kotlinlang.org)
-[![Jetpack Compose](https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4.svg)](https://developer.android.com/jetpack/compose)
-[![AWS](https://img.shields.io/badge/Backend-AWS-orange.svg)](https://aws.amazon.com)
-[![Material Design 3](https://img.shields.io/badge/Design-Material%203-purple.svg)](https://m3.material.io)
+# Real-Time Bus Driver Panel
 
-**A professional Android application for real-time bus tracking with GPS, motion detection, and cloud integration**
+### Android driver app concept for GPS-based bus tracking
 
-[Features](#-key-features) • [Installation](#-installation--setup) • [Architecture](#-technical-architecture) • [Usage](#-usage-guide)
+An Android application project exploring driver workflows, location updates, motion-based trip detection, and cloud-connected transport tracking.
+
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white) ![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white) ![Jetpack Compose](https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
+
+[Source](https://github.com/Pranjal3125/real-time-bus-driver-panel) · [Issues](https://github.com/Pranjal3125/real-time-bus-driver-panel/issues)
 
 </div>
 
----
+> **Project note:** This repository contains an Android application and example AWS backend integration. A deployed production backend, security review, and real-world transport pilot are not established by this repository alone.
 
-## 🌟 **Overview**
+## Features described by the project
 
-The Real-Time Bus Driver Panel is a comprehensive Android application designed for public transportation systems. It enables bus drivers to provide real-time location tracking with automatic trip detection, professional UI, and seamless cloud integration. Built with modern Android development practices using Jetpack Compose and MVVM architecture.
+- Driver sign-in using an assigned Bus ID
+- GPS-based location updates while tracking
+- Motion-sensor-assisted trip start/stop detection
+- Foreground service for background tracking
+- Offline/demo workflow for development
+- Cloud integration example using API Gateway, Lambda, and DynamoDB
+- Material Design 3 interface built with Jetpack Compose
 
-✨ Key Features
-🚌 Real-Time Location
+## Technology
 
-GPS updates every 5 seconds
+| Area | Technologies |
+|---|---|
+| Android | Kotlin, Jetpack Compose, Android SDK |
+| Location | Google Location APIs, Activity Recognition |
+| Background work | Foreground Services |
+| Networking | Retrofit, OkHttp |
+| Local preferences | SharedPreferences (Room is noted as planned) |
+| Example backend | AWS API Gateway, Lambda, DynamoDB |
+| Authentication concept | JWT / Cognito |
 
-Reliable background tracking via foreground service
+## Getting started
 
-Battery-optimized location requests
+1. Clone the repository.
+2. Open the project in Android Studio.
+3. Sync Gradle dependencies.
+4. Configure a test API endpoint if connecting a backend.
+5. Run on a compatible Android device with Google Play services.
 
-Offline storage with auto-sync
-
-🎯 Trip Detection
-
-Motion sensors for auto start/stop
-
-Accelerometer-based activity recognition
-
-Smart filters to reduce false positives
-
-Adjustable sensitivity
-
-📱 User Interface
-
-Material Design 3 with modern visuals
-
-Driver dashboard with live indicators
-
-Secure, simple login
-
-Responsive layouts for all screen sizes
-
-🔐 Permissions
-
-Runtime permission handling
-
-Android 10+ background location support
-
-Clear user explanations
-
-Fallback when permissions denied
-
-🛠 Tech Stack
-
-Android (Kotlin): Jetpack Compose, MVVM, Google Location & Activity APIs, Foreground Services, Retrofit + OkHttp, SharedPreferences (Room planned)
-
-Backend (AWS): API Gateway, Lambda (Node.js), DynamoDB, JWT / Cognito
-
-📋 Prerequisites
-
-Development: Android Studio, SDK 24+, Kotlin, Google Play Services
-AWS: Account, CLI, DynamoDB tables, API Gateway, Lambda setup
-
-## 🚀 Installation & Setup
-
-### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd busdriverpanel
-```
-
-### 2. Android Studio Setup
-1. Open project in Android Studio
-2. Sync Gradle dependencies
-3. Ensure Google Play Services are available on test device
-
-### 3. Configure API Endpoint
-Update the base URL in `ApiClient.kt`:
-```kotlin
-private const val BASE_URL = "https://your-api-gateway-url.amazonaws.com/prod/"
-```
-
-### 4. AWS Backend Setup (Optional for Development)
-The app includes offline mode for development. For production:
-
-1. **Create DynamoDB Tables**:
-   - `Buses` - Store bus information
-   - `BusLocations` - Store location updates
-   - `DriverSessions` - Track driver sessions
-
-2. **Deploy Lambda Function**:
-   - Use the provided `aws-lambda-function.js`
-   - Set up API Gateway endpoints
-   - Configure CORS for mobile app
-
-3. **Update API URLs**:
-   - Replace demo endpoints with actual AWS URLs
-
-## 🔧 Configuration
-
-### Permissions Required
-The app automatically requests these permissions:
-- `ACCESS_FINE_LOCATION` - GPS location access
-- `ACCESS_COARSE_LOCATION` - Network location access
-- `ACCESS_BACKGROUND_LOCATION` - Location when app is closed
-- `ACTIVITY_RECOGNITION` - Motion detection
-- `FOREGROUND_SERVICE` - Background tracking
-- `INTERNET` - API communication
-
-### Location Settings
-- **Update Interval**: 5 seconds (when moving)
-- **Minimum Distance**: 5 meters
-- **High Accuracy**: GPS + Network
-- **Background Tracking**: Enabled
-
-## 📱 User Flow
-
-1. **Driver Login**
-   - Driver enters assigned Bus ID
-   - Optional driver name
-   - App validates and creates session
-
-2. **Automatic Tracking**
-   - App monitors device activity
-   - Detects vehicle movement automatically
-   - Starts GPS tracking when bus is moving
-
-3. **Location Sharing**
-   - Sends location updates every 5 seconds
-   - Includes: Bus ID, coordinates, speed, timestamp
-   - Status automatically changes: Moving/Idle
-
-4. **Background Operation**
-   - Continues tracking when app is minimized
-   - Shows persistent notification
-   - Stops tracking when bus is stationary
-
-## 📊 API Endpoints
-
-### Driver Login
-```
-POST /driver/login
-{
-    "busId": "BUS001",
-    "driverName": "John Doe"
-}
-```
-
-### Location Update
-```
-POST /bus/location
-{
-    "busId": "BUS001",
-    "latitude": 37.7749,
-    "longitude": -122.4194,
-    "speed": 25.5,
-    "timestamp": 1640995200000,
-    "bearing": 180.0,
-    "accuracy": 5.0,
-    "status": "moving"
-}
-```
-
-## 🔒 Security Features
-
-- **Token-based Authentication**: JWT tokens for API access
-- **Input Validation**: All inputs validated before processing
-- **Permission Checks**: Runtime permission verification
-- **Secure Storage**: Sensitive data encrypted in SharedPreferences
-
-## 🎯 Development Features
-
-### For Hackathon/Demo
-- **Offline Mode**: Works without backend for demonstrations
-- **Mock Data**: Generates realistic demo data
-- **Easy Setup**: Minimal configuration required
-- **Instant Testing**: No AWS setup needed for basic functionality
-
-### Production Ready
-- **Error Handling**: Comprehensive error management
-- **Retry Logic**: Automatic retry for failed API calls
-- **Battery Optimization**: Smart power management
-- **Network Efficiency**: Minimizes data usage
-
-## 🔧 Build & Run
-
-### Debug Build
-```bash
+git clone https://github.com/Pranjal3125/real-time-bus-driver-panel.git
+cd real-time-bus-driver-panel
 ./gradlew assembleDebug
 ```
 
-### Release Build
-```bash
-./gradlew assembleRelease
-```
+On Windows, use `gradlew.bat assembleDebug`.
 
-### Install on Device
-```bash
-./gradlew installDebug
-```
+## Backend configuration
 
-## 📱 Testing
+The repository includes an example Lambda function and documents an AWS architecture using API Gateway and DynamoDB. Before connecting a real environment, deploy and test the backend independently, configure your own endpoint, use least-privilege IAM permissions, and configure authentication, authorization, validation, and monitoring. Never commit credentials, tokens, private endpoints, or personal location data.
 
-### Test Scenarios
-1. **Permission Flow**: Test all permission requests
-2. **Login Flow**: Valid/invalid Bus IDs
-3. **Location Tracking**: Movement detection accuracy
-4. **Background Mode**: App behavior when minimized
-5. **Network Issues**: Offline/online transitions
+Example API payloads are illustrative and do not establish a live backend deployment.
 
-### Test Devices
-- **Minimum**: Android 7.0 (API 24)
-- **Recommended**: Android 10+ for best experience
-- **GPS Required**: Device must have GPS capability
+## Permissions and privacy
 
-## 🚀 Deployment
+Location and activity-recognition permissions are sensitive. Request them only when needed, explain their purpose, and provide a way to stop tracking. Test background behavior and permission-denied paths on supported Android versions.
 
-### Android App
-1. Generate signed APK/AAB
-2. Upload to Google Play Store
-3. Configure app signing
-4. Set up crash reporting
+## Testing checklist
 
-### AWS Backend
-1. Deploy Lambda functions
-2. Configure API Gateway
-3. Set up DynamoDB tables
-4. Configure monitoring/logging
+- Permission grant and denial flows
+- Driver sign-in validation
+- GPS accuracy and update behavior
+- Background tracking and foreground notification
+- Offline/online transitions
+- API failures and retry behavior
+- Battery usage and stop-tracking behavior
 
-## 🔄 Future Enhancements
+## Contributing
 
-### Phase 2 Features
-- **QR Code Login**: Scan bus QR for instant login
-- **Route Planning**: Integration with route schedules
-- **Driver Communication**: Chat with dispatch
-- **Passenger Count**: Manual passenger counting
-- **Fuel Tracking**: Fuel consumption monitoring
+See [CONTRIBUTING.md](CONTRIBUTING.md). Include device/Android version, reproduction steps, and relevant logs with bug reports.
 
-### Advanced Features
-- **Predictive ETA**: Machine learning for arrival times
-- **Traffic Integration**: Real-time traffic data
-- **Emergency Alerts**: Panic button integration
-- **Analytics Dashboard**: Driver performance metrics
+## License
 
-## 🐛 Troubleshooting
-
-### Common Issues
-1. **Location Not Working**: Check GPS/permissions
-2. **Background Tracking Stops**: Check battery optimization settings
-3. **API Errors**: Verify network connectivity
-4. **Permission Denied**: Manually grant in device settings
-
-### Debug Tips
-- Enable developer options for detailed logging
-- Use Android Studio logcat for debugging
-- Test on multiple devices for compatibility
-
-## 📝 License
-
-[Add your license information here]
-
-## 🤝 Contributing
-
-[Add contribution guidelines here]
-
-## 📞 Support
-
-[Add support contact information here]
-
----
-
-**Note**: This app includes both offline demo mode and production-ready AWS integration. For quick testing and demonstrations, the offline mode allows full functionality without requiring AWS setup.
+No license is currently declared. All rights are reserved by default; ask the repository owner before reusing or redistributing the code.
