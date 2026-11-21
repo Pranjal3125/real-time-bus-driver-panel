@@ -2,47 +2,49 @@
 
 # Real-Time Bus Driver Panel
 
-### Android driver app concept for GPS-based bus tracking
+### Android Driver App for GPS-Based Public Transport Tracking
 
-An Android application project exploring driver workflows, location updates, motion-based trip detection, and cloud-connected transport tracking.
+An Android application built with Kotlin and Jetpack Compose for bus driver workflows, real-time GPS location updates, motion-assisted trip detection, and AWS cloud integration.
 
-![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white) ![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white) ![Jetpack Compose](https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)
+![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)
+![Jetpack Compose](https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white)
+![AWS](https://img.shields.io/badge/Backend-AWS-232F3E?logo=amazonwebservices&logoColor=white)
 
 [Source](https://github.com/Pranjal3125/real-time-bus-driver-panel) · [Issues](https://github.com/Pranjal3125/real-time-bus-driver-panel/issues)
 
 </div>
 
-> **Project note:** This repository contains an Android application and example AWS backend integration. A deployed production backend, security review, and real-world transport pilot are not established by this repository alone.
+> **Note:** Includes the Android client application and an example AWS serverless backend architecture (API Gateway, Lambda, DynamoDB) for development and testing.
 
-## Features described by the project
+## Features
 
 - Driver sign-in using an assigned Bus ID
-- GPS-based location updates while tracking
+- Real-time GPS location updates while tracking
 - Motion-sensor-assisted trip start/stop detection
-- Foreground service for background tracking
-- Offline/demo workflow for development
-- Cloud integration example using API Gateway, Lambda, and DynamoDB
+- Foreground service for reliable background location tracking
+- Offline/demo workflow for local development
+- Example cloud backend using AWS API Gateway, Lambda, and DynamoDB
 - Material Design 3 interface built with Jetpack Compose
 
-## Technology
+## Tech Stack
 
 | Area | Technologies |
 |---|---|
 | Android | Kotlin, Jetpack Compose, Android SDK |
 | Location | Google Location APIs, Activity Recognition |
-| Background work | Foreground Services |
+| Background Work | Foreground Services |
 | Networking | Retrofit, OkHttp |
-| Local preferences | SharedPreferences (Room is noted as planned) |
-| Example backend | AWS API Gateway, Lambda, DynamoDB |
-| Authentication concept | JWT / Cognito |
+| Local Storage | SharedPreferences *(Room planned)* |
+| Example Backend | AWS API Gateway, Lambda, DynamoDB |
+| Auth Concept | JWT / Amazon Cognito |
 
-## Getting started
+## Getting Started
 
-1. Clone the repository.
-2. Open the project in Android Studio.
-3. Sync Gradle dependencies.
-4. Configure a test API endpoint if connecting a backend.
-5. Run on a compatible Android device with Google Play services.
+1. Clone the repository and open it in **Android Studio**.
+2. Sync Gradle dependencies.
+3. Configure a test API endpoint if connecting to a backend.
+4. Run on an Android device with Google Play Services.
 
 ```bash
 git clone https://github.com/Pranjal3125/real-time-bus-driver-panel.git
@@ -50,32 +52,34 @@ cd real-time-bus-driver-panel
 ./gradlew assembleDebug
 ```
 
-On Windows, use `gradlew.bat assembleDebug`.
+On Windows, run `gradlew.bat assembleDebug`.
 
-## Backend configuration
+## Backend Configuration
 
-The repository includes an example Lambda function and documents an AWS architecture using API Gateway and DynamoDB. Before connecting a real environment, deploy and test the backend independently, configure your own endpoint, use least-privilege IAM permissions, and configure authentication, authorization, validation, and monitoring. Never commit credentials, tokens, private endpoints, or personal location data.
+This repository includes an example Lambda function and AWS architecture using API Gateway and DynamoDB. Before connecting a live environment:
 
-Example API payloads are illustrative and do not establish a live backend deployment.
+- Deploy and test your backend independently and configure your own API endpoint.
+- Use least-privilege IAM permissions, authentication/authorization, input validation, and monitoring.
+- Never commit credentials, tokens, private endpoints, or personal location data.
 
-## Permissions and privacy
+## Permissions & Privacy
 
-Location and activity-recognition permissions are sensitive. Request them only when needed, explain their purpose, and provide a way to stop tracking. Test background behavior and permission-denied paths on supported Android versions.
+Location and activity-recognition permissions are sensitive. Request them only when needed, explain their purpose clearly to drivers, and provide an explicit control to stop tracking.
 
-## Testing checklist
+## Testing Checklist
 
-- Permission grant and denial flows
-- Driver sign-in validation
-- GPS accuracy and update behavior
-- Background tracking and foreground notification
-- Offline/online transitions
-- API failures and retry behavior
-- Battery usage and stop-tracking behavior
+- [ ] Permission grant and denial flows
+- [ ] Driver sign-in validation
+- [ ] GPS accuracy and update intervals
+- [ ] Background tracking and foreground notification
+- [ ] Offline/online network transitions
+- [ ] API failures and retry behavior
+- [ ] Battery usage and stop-tracking cleanup
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Include device/Android version, reproduction steps, and relevant logs with bug reports.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Include device model, Android version, reproduction steps, and logs with bug reports.
 
 ## License
 
-No license is currently declared. All rights are reserved by default; ask the repository owner before reusing or redistributing the code.
+All rights reserved. Contact the repository owner before reusing or redistributing this code.
